@@ -278,7 +278,7 @@ export class CustomGoogleGeminiClient extends GoogleGeminiClient {
 
       // 5xx 是服务端临时错误，可重试
       if (result.status >= 500 && result.status < 600 && retryTime > 0){
-        await e.reply([segment.image('file://./data/Error1.jpg'), + '「昔涟与远方的翁法罗斯通信失败，请稍后再试。」'], true)
+        await e.reply([segment.image('file://./plugins/chatgpt-plugin/client/data/Error1.jpg'), + '「昔涟与远方的翁法罗斯通信失败，请稍后再试。」'], true)
         return {
           text: '',
           conversationId: '',
@@ -295,7 +295,7 @@ export class CustomGoogleGeminiClient extends GoogleGeminiClient {
 
       // 429 限流也可重试（带更长等待）
       if (result.status === 429 && retryTime > 0) {
-        await e.reply([segment.image('file://./data/Error.png'), + '「请求太频繁啦，稍微歇一歇再聊吧～」'], true)
+        await e.reply([segment.image('file://./plugins/chatgpt-plugin/client/data/Error.png'), + '「请求太频繁啦，稍微歇一歇再聊吧～」'], true)
         return {
           text: '',
           conversationId: '',
@@ -313,7 +313,7 @@ export class CustomGoogleGeminiClient extends GoogleGeminiClient {
       logger.error(`Google Gemini API error: ${result.status} ${errorText}`)
 
       try{
-        await this.e.reply([segment.image('file://./data/Error2.jpg'), + '「昔涟现在有点累了，等会儿再叫醒人家哦。」'], true)
+        await this.e.reply([segment.image('file://./plugins/chatgpt-plugin/client/data/Error2.jpg'), + '「昔涟现在有点累了，等会儿再叫醒人家哦。」'], true)
         //await this.e.reply(segment.image('图片URL'), true)
       } catch(err) {  
         logger.error('[Gemini] 错误提示图发送失败:', replyErr)
