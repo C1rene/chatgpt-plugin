@@ -7,7 +7,7 @@
 
 **GitHub 源**
 
-```shell
+```
 git clone --depth=1 https://github.com/C1rene/chatgpt-plugin.git ./plugins/chatgpt-plugin/
 ```
 
