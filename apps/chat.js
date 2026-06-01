@@ -775,6 +775,13 @@ export class chatgpt extends plugin {
         logger.mark({ conversation })
       }
       let chatMessage = await Core.sendMessage.bind(this)(prompt, conversation, use, e)
+      // 空回复保护：text 为空且无图片/无报错（多为 503/限流后返回的空结果），
+      // 直接返回，避免把空消息发给适配器被兜底成「没有任何回复」
+      if (chatMessage &&
+          (!chatMessage.text || chatMessage.text.trim() === '') &&
+          !chatMessage.images && !chatMessage.image && !chatMessage.error) {
+        return false
+      }
       // LLM 已正常返回内容，换成「赞」表情
       if (chatMessage && !chatMessage.noMsg) {
         await sendReaction(e, 201)
