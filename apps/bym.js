@@ -79,8 +79,13 @@ export class bym extends plugin {
           // 强制打开上下文，不然伪人笨死了
           enableGroupContext: true
         }
-      })
+      }, false) // errorOut=false：伪人模式出错时静默，不发错误图
+      logger.info('bym response', rsp)
       // let rsp = await client.sendMessage(e.msg, opt)
+      const junkReplies = ['没有任何回复', '没有回复', '无回复', '(无)', 'null']
+      if (!rsp || !rsp.text || rsp.text.trim() === '' || junkReplies.includes(rsp.text.trim())) {
+        return true
+      }
       let text = rsp.text
       let texts = customSplitRegex(text, /(?<!\?)[。？\n](?!\?)/, 3)
       // let texts = text.split(/(?<!\?)[。？\n](?!\?)/, 3)
