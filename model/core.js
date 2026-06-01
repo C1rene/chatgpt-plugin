@@ -135,7 +135,7 @@ class Core {
     },
   },errorOut = true) {
     // 兼容把 errorOut 写在 opt 对象里的调用方式（如 bym.js）
-    if (opt && typeof opt.errorOut === 'boolean') errorOut = opt.errorOut
+    //if (opt && typeof opt.errorOut === 'boolean') errorOut = opt.errorOut
     if (!conversation) {
       conversation = {
         timeoutMs: Config.defaultTimeoutMs
@@ -777,6 +777,8 @@ class Core {
         }
       })
       option.toolMode = (opt.settings.forceTool || Config.geminiForceToolKeywords?.find(k => prompt?.includes(k))) ? 'ANY' : 'AUTO'
+
+      //logger.info(`[GEMINI DEBUG] errorOut: ${errorOut}`)
       return await client.sendMessage(prompt, option, 3, errorOut)
     } else if (use === 'chatglm4') {
       const client = new ChatGLM4Client({
