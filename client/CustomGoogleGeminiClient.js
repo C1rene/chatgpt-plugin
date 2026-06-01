@@ -297,11 +297,11 @@ export class CustomGoogleGeminiClient extends GoogleGeminiClient {
       try{
         if (errorOut) {
           if (result.status >= 500 && result.status < 600) {
-            await this.e.reply([segment.image('file://./plugins/chatgpt-plugin/client/data/Error.jpeg'), '「昔涟与远方的翁法罗斯通信失败，请稍后再试。」'], true)
+            await this.e.reply([segment.image('file://./plugins/chatgpt-plugin/client/data/Error.jpeg'), '「昔涟与远方的翁法罗斯通信失败，请稍后再试~」'], true)
           } else if (result.status === 429) {
             await this.e.reply([segment.image('file://./plugins/chatgpt-plugin/client/data/Error1.jpg'), '「请求太频繁啦，稍微歇一歇再聊吧～」'], true)
           } else {
-            await this.e.reply([segment.image('file://./plugins/chatgpt-plugin/client/data/Error2.png'), '「昔涟现在有点累了，等会儿再叫醒人家哦。」'], true)
+            await this.e.reply([segment.image('file://./plugins/chatgpt-plugin/client/data/Error2.png'), '「昔涟现在有点累了，等会儿再叫醒人家哦~」'], true)
           }
         }
         //await this.e.reply(segment.image('图片URL'), true)
@@ -330,7 +330,7 @@ export class CustomGoogleGeminiClient extends GoogleGeminiClient {
     const candidate = response?.candidates?.[0]
     if (!candidate || !candidate.content || !Array.isArray(candidate.content.parts) || candidate.content.parts.length === 0) {
       logger.warn('Gemini 返回为空或异常: ' + JSON.stringify(response))
-      if (errorOut) await this.e.reply([segment.image('file://./plugins/chatgpt-plugin/client/data/Error.jpg'), '「昔涟现在睡着了，等会儿再叫醒人家哦。」'], true)
+      if (errorOut) await this.e.reply([segment.image('file://./plugins/chatgpt-plugin/client/data/Error.jpg'), '「昔涟现在睡着啦，等会儿再叫醒人家哦~」'], true)
       return {
         text: '',
         conversationId: '',
@@ -437,6 +437,11 @@ export class CustomGoogleGeminiClient extends GoogleGeminiClient {
       }
     } catch (err) {
       logger.warn(err)
+    }
+
+    if (!final || !final.trim()) {
+      logger.warn('[Gemini] 最终文本为空，返回 fallback')
+      final = '「昔涟现在睡着啦，等会儿再叫醒人家哦~」'
     }
 
     return {
