@@ -13,7 +13,7 @@ git clone --depth=1 https://github.com/C1rene/chatgpt-plugin.git ./plugins/chatg
 
 **安装依赖**
 
-```bash
+```
 cd plugins/chatgpt-plugin
 pnpm i
 ```
